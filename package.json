@@ -1,13 +1,25 @@
 {
-  "name": "node-sqs-stream",
-  "version": "1.0.0",
-  "description": "Use Readable and Writable streams for AWS SQS",
-  "main": "index.js",
-  "repository": "https://github.com/aneeshd16/node-sqs-stream.git",
-  "author": "Aneesh Devasthale <aneeshdevasthale@gmail.com>",
-  "license": "MIT",
-  "private": false,
-  "dependencies": {
-    "uuid": "^3.4.0"
-  }
+	"name": "node-sqs-stream",
+	"version": "1.0.0",
+	"description": "Use Readable and Writable streams for AWS SQS",
+	"main": "index.js",
+	"repository": "https://github.com/aneeshd16/node-sqs-stream.git",
+	"author": "Aneesh Devasthale <aneeshdevasthale@gmail.com>",
+	"license": "MIT",
+	"private": false,
+	"dependencies": {
+		"uuid": "^3.4.0"
+	},
+	"devDependencies": {
+		"husky": "^4.2.3",
+		"jest": "^25.1.0",
+		"precise-commits": "^1.0.2",
+		"prettier": "1.19.1",
+		"stream-spec": "^0.3.6"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "precise-commits"
+		}
+	}
 }
