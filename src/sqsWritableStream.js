@@ -1,5 +1,5 @@
 const { Writable } = require("stream");
-const { generateId } = require("./utils");
+const { generateId, SQSBatchSendError } = require("./utils");
 /**
  *
  *
@@ -23,6 +23,18 @@ class SQSWritableStream extends Writable {
 		this.buffer = [];
 	}
 
+	async sendSQSBatchMessage(entries) {
+		const result = await this.sqsClient
+			.sendMessageBatch({
+				Entries: this.buffer,
+				QueueUrl: this.queueUrl
+			})
+			.promise();
+		if (result.Failed && result.Failed.length) {
+			throw new SQSBatchSendError('SQS Batch Send Error', result.Failed);
+		}
+	}
+
 	async _write(chunk, encoding, callback) {
 		try {
 			if (typeof chunk === "string") {
@@ -30,7 +42,7 @@ class SQSWritableStream extends Writable {
 					Id: generateId(),
 					MessageBody: chunk
 				});
-			} else if (Buffer.isBuffer(chunk)){
+			} else if (Buffer.isBuffer(chunk)) {
 				this.buffer.push({
 					Id: generateId(),
 					MessageBody: chunk.toString()
@@ -39,12 +51,7 @@ class SQSWritableStream extends Writable {
 				this.buffer.push(chunk);
 			}
 			if (this.buffer.length >= this.sqsBatchSize) {
-				await this.sqsClient
-					.sendMessageBatch({
-						Entries: this.buffer,
-						QueueUrl: this.queueUrl
-					})
-					.promise();
+				await this.sendSQSBatchMessage(this.buffer);
 				this.buffer = [];
 			}
 			return callback();
@@ -56,12 +63,7 @@ class SQSWritableStream extends Writable {
 	async _final(callback) {
 		try {
 			if (this.buffer.length > 0) {
-				await this.sqsClient
-					.sendMessageBatch({
-						Entries: this.buffer,
-						QueueUrl: this.queueUrl
-					})
-					.promise();
+				await this.sendSQSBatchMessage(this.buffer);
 				this.buffer = [];
 			}
 			return callback();

@@ -11,15 +11,9 @@
 		"uuid": "^3.4.0"
 	},
 	"devDependencies": {
-		"husky": "^4.2.3",
+		"aws-sdk": "^2.617.0",
 		"jest": "^25.1.0",
-		"precise-commits": "^1.0.2",
 		"prettier": "1.19.1",
 		"stream-spec": "^0.3.6"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "precise-commits"
-		}
 	}
 }
