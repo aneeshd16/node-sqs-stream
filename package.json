@@ -1,0 +1,13 @@
+{
+  "name": "node-sqs-stream",
+  "version": "1.0.0",
+  "description": "Use Readable and Writable streams for AWS SQS",
+  "main": "index.js",
+  "repository": "https://github.com/aneeshd16/node-sqs-stream.git",
+  "author": "Aneesh Devasthale <aneeshdevasthale@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "uuid": "^3.4.0"
+  }
+}
