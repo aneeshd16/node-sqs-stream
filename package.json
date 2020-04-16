@@ -1,6 +1,6 @@
 {
 	"name": "node-sqs-stream",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Use Readable and Writable streams for AWS SQS",
 	"main": "index.js",
 	"repository": "https://github.com/aneeshd16/node-sqs-stream.git",
