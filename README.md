@@ -11,10 +11,47 @@ or
 $ yarn add node-sqs-stream
 ```
 
+## api reference
+<a name="SQSWritableStream"></a>
+
+## SQSWritableStream ⇐ <code>Writable</code>
+**Kind**: global class  
+**Extends**: <code>Writable</code>  
+
+* [SQSWritableStream](#SQSWritableStream) ⇐ <code>Writable</code>
+    * [.SQSWritableStream](#SQSWritableStream.SQSWritableStream)
+        * [new SQSWritableStream()](#new_SQSWritableStream.SQSWritableStream_new)
+
+<a name="SQSWritableStream.SQSWritableStream"></a>
+
+### SQSWritableStream.SQSWritableStream
+**Kind**: static class of [<code>SQSWritableStream</code>](#SQSWritableStream)  
+<a name="new_SQSWritableStream.SQSWritableStream_new"></a>
+
+#### new SQSWritableStream()
+Creates an instance of SQSWritableStream.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options.sqsClient | <code>Object</code> | instance of AWS.SQS |
+| options.queueUrl | <code>string</code> | URL of the SQS queue |
+| options.sqsBatchSize | <code>Number</code> | No of messages to be sent in one batch |
+
 ## use
+```js
+const sqsClient = new AWS.SQS({apiVersion: '2012-11-05'});
+const sqsStream = new SQSWritableStream({
+    sqsClient: sqsClient,
+    queueUrl: 'http://example-sqs-url',
+});
+someStream.pipe(sqsStream);
+```
+
+## examples
 ### Strings/Buffers
 ```js
-//pipe contents of a file to SQS without blowing up your memory usage
+//pipe contents of a file line by line to SQS without blowing up your memory usage
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const { SQSWritableStream } = require('../index');

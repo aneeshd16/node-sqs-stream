@@ -9,10 +9,9 @@ const { generateId, SQSBatchSendError } = require('./utils');
 class SQSWritableStream extends Writable {
 	/**
 	 *Creates an instance of SQSWritableStream.
-	 * @param {Object} options Config Options
-	 * @param {Object} options.sqsClient
-	 * @param {string} options.queueUrl
-	 * @param {Number} options.sqsBatchSize
+	 * @param {Object} options.sqsClient instance of AWS.SQS
+	 * @param {string} options.queueUrl URL of the SQS queue
+	 * @param {Number} options.sqsBatchSize No of messages to be sent in one batch
 	 * @memberof SQSWritableStream
 	 */
 	constructor(options) {
