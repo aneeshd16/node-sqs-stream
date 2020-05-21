@@ -34,7 +34,7 @@ class SQSWritableStream extends Writable {
 				throw new SQSBatchSendError('SQS Batch Send Error', result.Failed);
 			}
 		} catch (error) {
-			error.failedEntries = entries;
+			this.emit('failedEntries', entries);
 			const failedIds = entries.map(e => e.Id);
 			this.buffer = this.buffer.filter(entry => failedIds.indexOf(entry.Id) === -1);
 			throw error;
